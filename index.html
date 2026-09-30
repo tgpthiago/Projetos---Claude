@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thiago Gonçalves da Pascoa — Analista de Métricas de Software</title>
+<meta name="description" content="Analista de Requisitos e Métricas de Software. Certificado CFPS, PSPO I. Especialista em Análise de Pontos de Função (APF)." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4efe6;
+    --bg-elev: #ede6d8;
+    --ink: #1c1b18;
+    --ink-soft: #4a463e;
+    --ink-mute: #7a7365;
+    --line: #d9d1bf;
+    --accent: #b8552b;
+    --accent-soft: #d97a4c;
+    --paper: #faf6ee;
+    --grid-line: rgba(28, 27, 24, 0.06);
+  }
+
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #14130f;
+      --bg-elev: #1c1b16;
+      --ink: #f0ead9;
+      --ink-soft: #c8c0ac;
+      --ink-mute: #8a8272;
+      --line: #2c2a24;
+      --accent: #e08a5c;
+      --accent-soft: #f0a074;
+      --paper: #1a1914;
+      --grid-line: rgba(240, 234, 217, 0.05);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14130f;
+    --bg-elev: #1c1b16;
+    --ink: #f0ead9;
+    --ink-soft: #c8c0ac;
+    --ink-mute: #8a8272;
+    --line: #2c2a24;
+    --accent: #e08a5c;
+    --accent-soft: #f0a074;
+    --paper: #1a1914;
+    --grid-line: rgba(240, 234, 217, 0.05);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 20px; }
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  nav.scrolled { border-bottom-color: var(--line); }
+
+  nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 8px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-mute); }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 168px 0 120px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: -1px -1px;
+    mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .hero .container { position: relative; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 32px;
+  }
+
+  .eyebrow .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); }
+    70% { box-shadow: 0 0 0 12px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .hero-lead {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin-bottom: 44px;
+    letter-spacing: -0.005em;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    font-size: 13.5px;
+    color: var(--ink-mute);
+    margin-bottom: 44px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 8px; }
+  .hero-meta svg { width: 14px; height: 14px; opacity: 0.75; }
+
+  .cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -12px color-mix(in srgb, var(--ink) 60%, transparent);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+  .btn-ghost:hover {
+    border-color: var(--ink);
+    background: var(--bg-elev);
+  }
+
+  .btn svg { width: 15px; height: 15px; }
+
+  /* ============ METRICS ============ */
+  .metrics {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .metrics-intro {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+  }
+  .metrics-intro h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .metrics-intro p {
+    color: var(--ink-mute);
+    font-size: 14px;
+    max-width: 320px;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .metric {
+    padding: 40px 24px 40px 0;
+    border-right: 1px solid var(--line);
+  }
+  .metric:last-child { border-right: none; padding-right: 0; }
+  .metric:not(:first-child) { padding-left: 32px; }
+
+  .metric-value {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(44px, 5.5vw, 68px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .metric-value .unit {
+    font-size: 0.4em;
+    color: var(--accent);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    color: var(--ink-mute);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .metric:nth-child(2) { border-right: none; padding-right: 0; }
+    .metric:nth-child(3) { border-right: 1px solid var(--line); padding-left: 0; border-top: 1px solid var(--line); }
+    .metric:nth-child(4) { padding-left: 32px; border-top: 1px solid var(--line); }
+  }
+  @media (max-width: 520px) {
+    .metrics-grid { grid-template-columns: 1fr; }
+    .metric { border-right: none !important; padding: 32px 0 !important; border-bottom: 1px solid var(--line); }
+    .metric:last-child { border-bottom: none; }
+    .metric:nth-child(3), .metric:nth-child(4) { border-top: none; }
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section.chapter {
+    padding: 120px 0;
+    position: relative;
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 80px;
+    align-items: baseline;
+  }
+  @media (max-width: 720px) {
+    .section-head { grid-template-columns: 1fr; gap: 20px; margin-bottom: 48px; }
+  }
+
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-number::after {
+    content: '';
+    height: 1px;
+    background: var(--line);
+    flex: 1;
+    max-width: 80px;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 720px;
+  }
+  .section-title em { color: var(--accent); font-style: italic; font-weight: 300; }
+
+  /* ============ SOBRE ============ */
+  .about-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+  }
+  @media (max-width: 720px) {
+    .about-body { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .about-text {
+    max-width: 720px;
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .about-text p + p { margin-top: 20px; }
+  .about-text strong { color: var(--ink); font-weight: 500; }
+
+  .about-skills {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .skill-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .skill-chip::before {
+    content: '→ ';
+    color: var(--accent);
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+  }
+  @media (max-width: 720px) {
+    .timeline { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  .timeline-track {
+    position: relative;
+  }
+
+  .job {
+    padding: 32px 0 48px 32px;
+    border-left: 1px solid var(--line);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .job:hover { border-left-color: var(--accent); }
+  .job:last-child { padding-bottom: 0; }
+
+  .job::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 40px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--ink-mute);
+    transition: all 0.3s;
+  }
+  .job:first-child::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+
+  .job-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .job-current {
+    display: inline-block;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    margin-left: 8px;
+    font-weight: 600;
+  }
+
+  .job-role {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .job-company {
+    font-size: 14px;
+    color: var(--ink-mute);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+  .job-company span { color: var(--ink-soft); }
+
+  .job-activities {
+    list-style: none;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .job-activities li {
+    padding: 8px 0 8px 20px;
+    position: relative;
+  }
+  .job-activities li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 10px;
+    height: 1px;
+    background: var(--ink-mute);
+  }
+
+  .sub-role {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+    border-top: 1px dashed var(--line);
+    font-size: 14px;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .sub-role:first-of-type { margin-top: 20px; }
+  .sub-role .sub-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ CERT GRID ============ */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-left: 248px;
+  }
+  @media (max-width: 900px) {
+    .cert-grid { grid-template-columns: 1fr; margin-left: 0; }
+  }
+
+  .cert-card {
+    padding: 28px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-card.clickable { cursor: pointer; }
+  .cert-card.clickable:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .cert-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .cert-card:hover::after { transform: scaleY(1); }
+
+  .cert-pdf-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-mute);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: color-mix(in srgb, var(--bg) 60%, transparent);
+  }
+  .cert-pdf-icon svg { width: 14px; height: 14px; }
+  .cert-card.clickable:hover .cert-pdf-icon {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: rotate(-8deg) scale(1.08);
+  }
+
+  /* ============ MODAL ============ */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: color-mix(in srgb, var(--ink) 70%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal {
+    background: var(--bg);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 960px;
+    height: 92vh;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.4);
+    transform: scale(0.96) translateY(12px);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+  }
+  .modal-backdrop.open .modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  .modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--paper);
+  }
+  .modal-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+  }
+  .modal-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .modal-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .modal-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .modal-btn:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+    background: var(--bg-elev);
+  }
+  .modal-btn svg { width: 16px; height: 16px; }
+
+  .modal-body {
+    flex: 1;
+    overflow: hidden;
+    background: var(--bg-elev);
+    position: relative;
+  }
+  .modal-body iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  body.modal-open {
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .modal-backdrop { padding: 12px; }
+    .modal { height: 96vh; max-height: 96vh; border-radius: 6px; }
+    .modal-header { padding: 14px 16px; }
+    .modal-name { font-size: 15px; }
+    .modal-btn { width: 36px; height: 36px; }
+  }
+
+  .cert-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .cert-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .cert-issuer {
+    font-size: 13px;
+    color: var(--ink-mute);
+  }
+
+  /* ============ FORMACAO ============ */
+  .education {
+    margin-left: 248px;
+  }
+  @media (max-width: 720px) { .education { margin-left: 0; } }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .edu-item:last-child { border-bottom: 1px solid var(--line); }
+
+  .edu-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+  }
+
+  .edu-degree {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .edu-institution {
+    font-size: 14px;
+    color: var(--ink-mute);
+  }
+  @media (max-width: 560px) {
+    .edu-item { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ============ CONTACT ============ */
+  .contact {
+    padding: 140px 0 80px;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  @media (max-width: 900px) {
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .contact h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .contact h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+
+  .contact-info { display: flex; flex-direction: column; gap: 20px; }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    transition: padding 0.3s ease;
+  }
+  .contact-item:hover { padding-left: 8px; }
+  .contact-item:first-child { border-top: 1px solid var(--line); }
+
+  .contact-item .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-width: 80px;
+  }
+  .contact-item .value {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 400;
+    flex: 1;
+    word-break: break-all;
+  }
+  .contact-item .arrow {
+    color: var(--ink-mute);
+    transition: transform 0.3s, color 0.3s;
+  }
+  .contact-item:hover .arrow {
+    transform: translate(4px, -4px);
+    color: var(--accent);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--ink-mute);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ============ REVEAL ANIMATION ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .pulse { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container">
+    <div class="brand"><span class="brand-dot"></span> Thiago Pascoa</div>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#certificacoes">Certificações</a></li>
+      <li><a href="#formacao">Formação</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow reveal"><span class="pulse"></span> Disponível para projetos · PJ / Consultoria</div>
+    <h1 class="reveal">
+      Thiago Gonçalves<br>
+      da <em>Pascoa</em>.
+    </h1>
+    <p class="hero-lead reveal">
+      Analista de Requisitos e Métricas de Software. Traduzo escopo em números confiáveis com Análise de Pontos de Função — sob IFPUG, NESMA, SISP e SNAP.
+    </p>
+    <div class="hero-meta reveal">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Vila Velha · ES · Brasil
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-4V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1z"/></svg>
+        5+ anos de experiência
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        CFPS · PSPO I
+      </span>
+    </div>
+    <div class="cta-group reveal">
+      <a href="mailto:tgpthiago123@gmail.com" class="btn btn-primary">
+        Entrar em contato
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/tgpthiago" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V9h3zM6.5 7.5A1.75 1.75 0 1 1 8.25 5.75 1.75 1.75 0 0 1 6.5 7.5zM19 19h-3v-4.7c0-1.13-.4-1.9-1.4-1.9a1.5 1.5 0 0 0-1.4 1 1.9 1.9 0 0 0-.1.7V19h-3V9h3v1.3a3 3 0 0 1 2.7-1.5c2 0 3.5 1.3 3.5 4.1z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- METRICS -->
+<section class="metrics">
+  <div class="container">
+    <div class="metrics-intro reveal">
+      <h2>A trajetória em números.</h2>
+      <p>Cada projeto contado, aferido e validado. Precisão é o produto.</p>
+    </div>
+    <div class="metrics-grid reveal">
+      <div class="metric">
+        <div class="metric-value">5<span class="unit">+ anos</span></div>
+        <div class="metric-label">Em métricas<br>de software</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">20<span class="unit">+</span></div>
+        <div class="metric-label">Projetos<br>mensurados</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">70<span class="unit">mil PF</span></div>
+        <div class="metric-label">Pontos de função<br>analisados</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">15<span class="unit">+</span></div>
+        <div class="metric-label">Órgãos públicos<br>atendidos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="chapter" id="sobre">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-number">01 / Sobre</div>
+      <h2 class="section-title">Métrica é linguagem. <em>Traduzo escopo em decisão.</em></h2>
+    </div>
+    <div class="about-body">
+      <aside class="about-skills reveal">
+        <span class="skill-chip">APF / Pontos de Função</span>
+        <span class="skill-chip">Aferição de Contagem</span>
+        <span class="skill-chip">Especificação de Requisitos</span>
+        <span class="skill-chip">IFPUG · NESMA</span>
+        <span class="skill-chip">SISP · SNAP</span>
+        <span class="skill-chip">Data Warehouse</span>
+        <span class="skill-chip">RPA · IA</span>
+        <span class="skill-chip">Consultoria</span>
+      </aside>
+      <div class="about-text reveal">
+        <p>
+          Sou <strong>especialista em Análise de Pontos de Função</strong>, com atuação em métricas, mensuração e estimativas de software em projetos de diferentes níveis de complexidade. Ao longo da trajetória, participei de equipes de métricas e da prestação de serviços para fábricas de software — realizando análises e revisões de requisitos com foco em identificar funcionalidades passíveis de mensuração e no correto aproveitamento dos PFs.
+        </p>
+        <p>
+          Minha experiência inclui contagens <strong>detalhadas, estimadas, indicativas e simplificadas</strong>, além de aferição e revisão de contagens, análise de requisitos e especificações funcionais. Trabalho com diferentes referências e abordagens — IFPUG, NESMA, SISP e SNAP — e já mensurei projetos em contextos de sustentação, evolução, Data Warehouse, migração, Inteligência Artificial e RPA.
+        </p>
+        <p>
+          Também desenvolvo ferramentas para simplificar e otimizar atividades rotineiras do processo de mensuração, além de conduzir workshops e apresentações sobre práticas de APF. Possuo a certificação <strong>CFPS – Certified Function Point Specialist</strong> pelo IFPUG, que reconhece a aplicação da técnica de acordo com as boas práticas da área.
+        </p>
+        <p>
+          Estou aberto a oportunidades em Análise de Pontos de Função, Métricas de Software, Estimativas e Engenharia de Software — e disponível para <strong>consultoria e prestação de serviços em modelo PJ</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section class="chapter" id="experiencia" style="padding-top:60px">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-number">02 / Experiência</div>
+      <h2 class="section-title">Uma carreira construída <em>medindo com rigor.</em></h2>
+    </div>
+
+    <div class="timeline">
+      <div></div>
+      <div class="timeline-track">
+
+        <article class="job reveal">
+          <div class="job-period">Jan 2025 — Presente <span class="job-current">Atual</span></div>
+          <h3 class="job-role">Analista de Requisitos e Métricas de Software</h3>
+          <div class="job-company"><span>Thiago Pascoa ST</span> · Vila Velha, ES</div>
+          <ul class="job-activities">
+            <li>Prestação de serviços de métricas para fábricas de software, com atuação em diferentes projetos e contextos de mensuração.</li>
+            <li>Análise de Pontos de Função (APF), utilizando os guias e referências IFPUG, SISP e SNAP.</li>
+            <li>Experiência com contagens detalhadas, estimadas, indicativas e simplificadas de Pontos de Função.</li>
+            <li>Atuação como aferidor de contagens de Pontos de Função, realizando análise, revisão e validação das medições.</li>
+            <li>Mensuração de projetos de sustentação, desenvolvimento, melhoria e evolução — incluindo iniciativas de Data Warehouse, migração de sistemas, Inteligência Artificial (IA) e RPA.</li>
+            <li>Análise e elaboração de especificações técnicas, incluindo casos de uso e histórias de usuário.</li>
+            <li>Planejamento das demandas de mensuração, avaliando escopo e requisitos dos projetos para identificar oportunidades e garantir o correto aproveitamento dos PFs.</li>
+            <li>Desenvolvimento de ferramentas para simplificação e otimização de atividades rotineiras.</li>
+            <li>Realização de workshops e apresentações sobre abordagens de APF e práticas de mensuração de software.</li>
+            <li>Consultoria em APF, apoiando projetos e equipes na aplicação das práticas de mensuração.</li>
+          </ul>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-period">Ago 2021 — Jan 2025 · 3 anos 6 meses</div>
+          <h3 class="job-role">FATTO Consultoria e Sistemas</h3>
+          <div class="job-company"><span>Trajetória de crescimento — de Estagiário a Analista</span></div>
+
+          <div class="sub-role">
+            <div><strong style="color:var(--ink);font-weight:500">Analista de Métricas de Software</strong></div>
+            <div class="sub-period">Abr 2022 — Jan 2025 · 2 anos 10 meses</div>
+          </div>
+          <div class="sub-role">
+            <div><strong style="color:var(--ink);font-weight:500">Estagiário APF</strong></div>
+            <div class="sub-period">Ago 2021 — Mar 2022 · 8 meses</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICACOES -->
+<section class="chapter" id="certificacoes" style="padding-top:60px">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-number">03 / Certificações</div>
+      <h2 class="section-title"><em>Rigor</em> validado por quem define o padrão.</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card clickable reveal" role="button" tabindex="0"
+           data-pdf="certs/cfps.pdf"
+           data-cert-eyebrow="IFPUG · CFPS · Válido até Mai/2029"
+           data-cert-name="Certified Function Point Specialist">
+        <div class="cert-pdf-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <path d="M9 13h1.5a1.5 1.5 0 0 1 0 3H9v3"/>
+          </svg>
+        </div>
+        <div class="cert-badge">IFPUG · CFPS</div>
+        <h3 class="cert-name">Certified Function Point Specialist</h3>
+        <p class="cert-issuer">International Function Point Users Group</p>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-badge">IFPUG · CFPP</div>
+        <h3 class="cert-name">Certified Function Point Practitioner</h3>
+        <p class="cert-issuer">International Function Point Users Group</p>
+      </div>
+      <div class="cert-card clickable reveal" role="button" tabindex="0"
+           data-pdf="certs/pspo-i.pdf"
+           data-cert-eyebrow="Scrum.org · Emitido em Set/2026"
+           data-cert-name="Professional Scrum Product Owner I">
+        <div class="cert-pdf-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <path d="M9 13h1.5a1.5 1.5 0 0 1 0 3H9v3"/>
+          </svg>
+        </div>
+        <div class="cert-badge">Scrum · PSPO I</div>
+        <h3 class="cert-name">Professional Scrum Product Owner I</h3>
+        <p class="cert-issuer">Scrum.org</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMACAO -->
+<section class="chapter" id="formacao" style="padding-top:60px">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-number">04 / Formação</div>
+      <h2 class="section-title">Base acadêmica em <em>sistemas de informação.</em></h2>
+    </div>
+    <div class="education">
+      <div class="edu-item reveal">
+        <div class="edu-year">2022 — 2023</div>
+        <div>
+          <div class="edu-degree">CST em Análise e Desenvolvimento de Sistemas</div>
+          <div class="edu-institution">Multivix</div>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-year">2017</div>
+        <div>
+          <div class="edu-degree">Bacharelado em Sistemas de Informação</div>
+          <div class="edu-institution">Universidade Federal do Espírito Santo — UFES</div>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-year">2014 — 2016</div>
+        <div>
+          <div class="edu-degree">Técnico Integrado em Informática</div>
+          <div class="edu-institution">Instituto Federal do Espírito Santo — Ifes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contact" id="contato">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="reveal">
+        <div class="eyebrow" style="margin-bottom:24px"><span class="pulse"></span> Vamos conversar</div>
+        <h2>Um projeto de <em>mensuração</em> em vista?</h2>
+      </div>
+      <div class="contact-info reveal">
+        <a class="contact-item" href="mailto:tgpthiago123@gmail.com">
+          <span class="label">Email</span>
+          <span class="value">tgpthiago123@gmail.com</span>
+          <span class="arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/tgpthiago" target="_blank" rel="noopener">
+          <span class="label">LinkedIn</span>
+          <span class="value">/in/tgpthiago</span>
+          <span class="arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+        <div class="contact-item" style="cursor:default">
+          <span class="label">Local</span>
+          <span class="value">Vila Velha · Espírito Santo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="certModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalName">
+  <div class="modal" role="document">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span class="modal-eyebrow" id="modalEyebrow"></span>
+        <span class="modal-name" id="modalName"></span>
+      </div>
+      <div class="modal-actions">
+        <a class="modal-btn" id="modalDownload" href="#" download title="Baixar PDF" aria-label="Baixar PDF">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </a>
+        <button class="modal-btn" id="modalClose" title="Fechar (Esc)" aria-label="Fechar modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe id="modalFrame" title="Visualização do certificado"></iframe>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div>© 2026 Thiago Gonçalves da Pascoa</div>
+    <div>Feito à mão · <span id="year"></span></div>
+  </div>
+</footer>
+
+<script>
+  // Nav shadow on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Theme toggle
+  const toggle = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  const iconMoon = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  const iconSun = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
+
+  const stored = null; // sessionStorage/localStorage skipped for pristine load; toggled per session
+  let current = null;
+  try {
+    current = localStorage.getItem('theme');
+  } catch(e) {}
+  if (current) {
+    document.documentElement.setAttribute('data-theme', current);
+    icon.innerHTML = current === 'dark' ? iconSun : iconMoon;
+  } else {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    icon.innerHTML = prefersDark ? iconSun : iconMoon;
+  }
+
+  toggle.addEventListener('click', () => {
+    const currentAttr = document.documentElement.getAttribute('data-theme');
+    let next;
+    if (currentAttr === 'dark') next = 'light';
+    else if (currentAttr === 'light') next = 'dark';
+    else next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    icon.innerHTML = next === 'dark' ? iconSun : iconMoon;
+    try { localStorage.setItem('theme', next); } catch(e) {}
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ============ Certificate Modal ============
+  const modal = document.getElementById('certModal');
+  const modalFrame = document.getElementById('modalFrame');
+  const modalName = document.getElementById('modalName');
+  const modalEyebrow = document.getElementById('modalEyebrow');
+  const modalDownload = document.getElementById('modalDownload');
+  const modalClose = document.getElementById('modalClose');
+  let lastFocused = null;
+
+  function openCertModal(card) {
+    const pdf = card.dataset.pdf;
+    const name = card.dataset.certName || 'Certificado';
+    const eyebrow = card.dataset.certEyebrow || '';
+    if (!pdf) return;
+
+    lastFocused = document.activeElement;
+    modalName.textContent = name;
+    modalEyebrow.textContent = eyebrow;
+    modalDownload.href = pdf;
+    modalFrame.src = pdf;
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    setTimeout(() => modalClose.focus(), 60);
+  }
+
+  function closeCertModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    setTimeout(() => { modalFrame.src = 'about:blank'; }, 320);
+    if (lastFocused && typeof lastFocused.focus === 'function') {
+      lastFocused.focus();
+    }
+  }
+
+  document.querySelectorAll('.cert-card.clickable').forEach(card => {
+    card.addEventListener('click', () => openCertModal(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openCertModal(card);
+      }
+    });
+  });
+
+  modalClose.addEventListener('click', closeCertModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeCertModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeCertModal();
+  });
+</script>
+
+</body>
+</html>
